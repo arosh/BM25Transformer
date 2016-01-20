@@ -76,7 +76,7 @@ class BM25Transformer(BaseEstimator, TransformerMixin):
         avgdl = np.average(dl)
         # Compute BM25 score only for non-zero elements
         data = X.data * (self.k1 + 1) / (X.data + self.k1 * (1 - self.b + self.b * rep / avgdl))
-        X = sp.csr_matrix((data, X.indices, X.indptr))
+        X = sp.csr_matrix((data, X.indices, X.indptr), shape=X.shape)
 
         if self.use_idf:
             check_is_fitted(self, '_idf_diag', 'idf vector is not fitted')
